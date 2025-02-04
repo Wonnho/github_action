@@ -19,5 +19,5 @@ jobs:
       runs-on: ubuntu-24.04
 
       steps:
-        - Print Secret
+        - name: Print Secret
           run: echo '${{secrets.ACTION_SECRET}}'
