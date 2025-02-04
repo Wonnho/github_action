@@ -1,0 +1,13 @@
+name: new world
+on:
+  push:
+    branches:
+      - deploy/*
+
+jobs:
+  new-world:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Print new-world
+        run: echo 'features/*'
