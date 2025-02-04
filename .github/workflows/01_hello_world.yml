@@ -1,4 +1,4 @@
-name:Hello world
+name: Hello world
 #define event 
 on:
   push:
@@ -13,4 +13,3 @@ jobs:
     steps:
       - name: Print hello World
         run:  echo 'Hello world'
-        
