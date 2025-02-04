@@ -1,0 +1,16 @@
+name:Hello world
+#define event 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-24.04 # 어떤 환경에서 쓸거야
+
+    #process in jobs
+    steps:
+      - name: Print hello World
+        run:  echo 'Hello world'
+        
