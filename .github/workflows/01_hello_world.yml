@@ -20,4 +20,4 @@ jobs:
 
       steps:
         - Print Secret
-          run: echo '${{secrets.action_secret}}'
+          run: echo '${{secrets.ACTION_SECRET}}'
