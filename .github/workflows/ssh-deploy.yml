@@ -7,7 +7,6 @@ on:
 jobs:
   ssh-agent:
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -51,14 +50,14 @@ jobs:
           target: "~/work-directory"
 
       - name: Pull Image & Up Container
-        uses: appleboy/scp-action@v1.0.3
+        uses: appleboy/ssh-action@v1.0.3
         with:
-            host: ${{secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.SSH_PORT }} 
-            script: |
-              cd ~/work-directory
-              docker-compose pull
-              docker-compose down
-              docker-compose up -d   
+          host: ${{secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/work-directory
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
