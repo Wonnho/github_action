@@ -26,12 +26,12 @@ jobs:
       # - name: copy file to remote server
       #   run: scp -P ${{ secrets.SSH_PORT }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
       - name: Run remote command test
-        uses: appleboy/ssh-action@1.2.0
+        uses: appleboy/ssh-action@v1.2.0
         with:
-        host: ${{secrets.SSH_HOST}}
-        username: ${{secrets.SSH_USERNAME}}
-        key: ${{secrets.SSH_PRIVATE_KEY}}
-        port: ${{secrets.SSH_PORT}}
+        host: ${{ secrets.SSH_HOST}}
+        username: ${{ secrets.SSH_USERNAME}}
+        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        port: ${{ secrets.SSH_PORT}}
 
         script: |
           touch 'hello-world1.txt'
