@@ -28,12 +28,12 @@ jobs:
       - name: Run remote command test
         uses: appleboy/ssh-action@v1.2.0
         with:
-        host: ${{ secrets.SSH_HOST}}
-        username: ${{ secrets.SSH_USERNAME}}
-        key: ${{ secrets.SSH_PRIVATE_KEY}}
-        port: ${{ secrets.SSH_PORT}}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
 
-        script: |
-          touch 'hello-world1.txt'
-          touch 'ssh-action-and-scp-actions.txt'
-          touch 'ssh-action-with-appleboy.txt'
+          script: |
+            touch 'hello-world1.txt'
+            touch 'ssh-action-and-scp-actions.txt'
+            touch 'ssh-action-with-appleboy.txt'
