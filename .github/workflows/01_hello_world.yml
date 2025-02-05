@@ -1,17 +1,17 @@
-name: Hello world
-#define event 
-on:
-  push:
-    branches:
-      - main
-      - develop
-      - deployment/*
+# name: Hello world
+# #define event 
+# on:
+#   push:
+#     branches:
+#       - main
+#       - develop
+#       - deployment/*
 
-jobs:
-  hello-world:
-    runs-on: ubuntu-24.04 # 어떤 환경에서 쓸거야
+# jobs:
+#   hello-world:
+#     runs-on: ubuntu-24.04 # 어떤 환경에서 쓸거야
 
-    #process in jobs
-    steps:
-      - name: Print hello World
-        run:  echo 'Hello world'
+#     #process in jobs
+#     steps:
+#       - name: Print hello World
+#         run:  echo 'Hello world'
