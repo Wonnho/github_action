@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -25,7 +24,7 @@ jobs:
       #   run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "touch 'hello-world.txt'"
 
       # - name: copy file to remote server
-      #   run: scp -P ${{ secrets.SSH_PORT }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/ 
+      #   run: scp -P ${{ secrets.SSH_PORT }} Readme.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
       - name: Run remote command test
         uses: appleboy/ssh-action@1.2.0
         with:
@@ -35,6 +34,6 @@ jobs:
         port: ${{secrets.SSH_PORT}}
 
         script: |
-            touch 'hello-world1.txt'
-            touch 'ssh-action-and-scp-actions.txt'
-            touch 'ssh-action-with-appleboy.txt'
+          touch 'hello-world1.txt'
+          touch 'ssh-action-and-scp-actions.txt'
+          touch 'ssh-action-with-appleboy.txt'
