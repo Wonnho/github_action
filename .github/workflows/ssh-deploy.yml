@@ -100,7 +100,7 @@ jobs:
 
         with:
           webhook: ${{secrets.DISCORD_WEBHOOK }}
-          TITLE: "DEPLOYMENT START-Success"
+          TITLE: "DEPLOYMENT END-Success"
 
         #디스코드 : 종료 알림 메시지 실패시
       - name: Start Message
