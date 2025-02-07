@@ -26,9 +26,9 @@ services:
         #type: types of cache
         #src: cache를 저장할 경로
         #mode: cache의 저장 방식(max: 최대한 많은 cache data를 저장
-    # path from calling cache
-    cache_from:
-      - type=local,src=/tmp/.buildx-cache/backend
+      # path from calling cache
+      cache_from:
+        - type=local,src=/tmp/.buildx-cache/backend
 
     image: wonnho/backend:latest
     env_file:
