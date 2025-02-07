@@ -17,6 +17,13 @@ jobs:
         with:
           webhook: ${{secrets.DISCORD_WEBHOOK }}
           TITLE: "DEPLOYMENT START"
+       #cache 저앙 설정을 위한 action(library)
+      - name: Cache Docker Image Layer
+      #actions/cache: github cache 저장소 활용을 위한 라이브러리
+        uses: actions/cache@v4.2.0
+        with"
+          path: /tmp/.buildx-cache
+          key:docker
 
       - name: 테스트 ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -37,23 +44,40 @@ jobs:
           echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
 
+      #docker BuildKit engine setup action(library)
+      - name: Set up docker BuildKit
+      #setup-buildx-action
+      #BuildKit를 설치하는 action (library)
+      #buildx=BuildKit
+        uses: docker/setput-buildx-action@v3
+
+    # BuildKit engine Builder 생성
+    # 기존 Docker builder는  cache를 제어할 수 없다. 파일 저장&불러오기 경로 제어 불가
+      - name: Create Buildkit
+      #1. buildkit buildkit를 생성하는 명령어
+      #2. buildkit 설정 명령어
+        run: |   #| 명령어를 이어서 쓸 경우 이용
+          docker buildx create --use --name buildkit
+          docker buildx use buildkit
+
+
       - name: Docker Image Build
-        run: docker compose build
+        run: docker compose -f docker-compose-actions-cache.yml build --build-arg BUILDKIT_INLINE_CACHE=1
 
       - name: Login DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Docker Image Push
-        run: docker compose push
+        run: docker compose -f docker-compose-actions-cache.yml push
 
-      - name: Copy .env/ docker-compose.yml
+      - name: Copy .env/ docker-compose-actions-cache.yml
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "docker-compose.yml,.env"
+          source: "docker-compose-actions-cache.yml,.env"
           target: "~/work-directory"
 
       - name: Pull Image & Up Container
@@ -65,9 +89,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/work-directory
-            docker-compose pull
-            docker-compose down
-            docker-compose up -d
+            docker compose -f docker-compose-actions-cache.yml pull
+            docker compose -f docker-compose-actions-cache.yml down
+            docker compose -f docker-compose-actions-cache.yml up -d
 
        #디스코드 :종료 알림 메세지
       - name: Start Message
