@@ -17,13 +17,13 @@ jobs:
         with:
           webhook: ${{secrets.DISCORD_WEBHOOK }}
           TITLE: "DEPLOYMENT START"
-       #cache 저앙 설정을 위한 action(library)
+        #cache 저앙 설정을 위한 action(library)
       - name: Cache Docker Image Layer
-      #actions/cache: github cache 저장소 활용을 위한 라이브러리
+        #actions/cache: github cache 저장소 활용을 위한 라이브러리
         uses: actions/cache@v4.2.0
-        with"
+        with:
           path: /tmp/.buildx-cache
-          key:docker
+          key: docker
 
       - name: 테스트 ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -46,20 +46,19 @@ jobs:
 
       #docker BuildKit engine setup action(library)
       - name: Set up docker BuildKit
-      #setup-buildx-action
-      #BuildKit를 설치하는 action (library)
-      #buildx=BuildKit
+        #setup-buildx-action
+        #BuildKit를 설치하는 action (library)
+        #buildx=BuildKit
         uses: docker/setput-buildx-action@v3
 
-    # BuildKit engine Builder 생성
-    # 기존 Docker builder는  cache를 제어할 수 없다. 파일 저장&불러오기 경로 제어 불가
+      # BuildKit engine Builder 생성
+      # 기존 Docker builder는  cache를 제어할 수 없다. 파일 저장&불러오기 경로 제어 불가
       - name: Create Buildkit
-      #1. buildkit buildkit를 생성하는 명령어
-      #2. buildkit 설정 명령어
-        run: |   #| 명령어를 이어서 쓸 경우 이용
+        #1. buildkit buildkit를 생성하는 명령어
+        #2. buildkit 설정 명령어
+        run: | #| 명령어를 이어서 쓸 경우 이용
           docker buildx create --use --name buildkit
           docker buildx use buildkit
-
 
       - name: Docker Image Build
         run: docker compose -f docker-compose-actions-cache.yml build --build-arg BUILDKIT_INLINE_CACHE=1
@@ -93,16 +92,16 @@ jobs:
             docker compose -f docker-compose-actions-cache.yml down
             docker compose -f docker-compose-actions-cache.yml up -d
 
-       #디스코드 :종료 알림 메세지
+        #디스코드 :종료 알림 메세지
       - name: Start Message
         uses: sarisia/actions-status-discord@v1
         if: success()
-     
+
         with:
           webhook: ${{secrets.DISCORD_WEBHOOK }}
           TITLE: "DEPLOYMENT START-Success"
-     
-       #디스코드 : 종료 알림 메시지 실패시
+
+        #디스코드 : 종료 알림 메시지 실패시
       - name: Start Message
         uses: sarisia/actions-status-discord@v1
         if: failure()
