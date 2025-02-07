@@ -18,18 +18,18 @@ services:
   backend:
     container_name: backend-container
     platform: linux/amd64
-    build:   #이미지 build 블록 관련 설정
+    build: #이미지 build 블록 관련 설정
       context: ./backend
-      cache_to: 
-        - type=local,src=/tmp/.buildx-cache/backend, mode=max
+      cache_to:
+        - type=local,dest=/tmp/.buildx-cache/backend, mode=max
         #local은 file을 의미함
         #type: types of cache
         #src: cache를 저장할 경로
-        #mode: cache의 저장 방식(max: 최대한 많은 cache data를 저장 
+        #mode: cache의 저장 방식(max: 최대한 많은 cache data를 저장
     # path from calling cache
     cache_from:
-     - local,src=/tmp/.buildx-cache/backend
-     
+      - local,src=/tmp/.buildx-cache/backend
+
     image: wonnho/backend:latest
     env_file:
       - .env
