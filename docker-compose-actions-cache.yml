@@ -21,7 +21,7 @@ services:
     build: #이미지 build 블록 관련 설정
       context: ./backend
       cache_to:
-        - type=local,dest=/tmp/.buildx-cache/backend, mode=max
+        - type=local,dest=/tmp/.buildx-cache/backend,mode=max
         #local은 file을 의미함
         #type: types of cache
         #src: cache를 저장할 경로
