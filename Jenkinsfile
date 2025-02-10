@@ -19,6 +19,7 @@ pipeline {
           }
         }
       }
+	 }
 
 		stage('Build Start') {
       steps {
@@ -56,7 +57,7 @@ pipeline {
 		}
 	 }
 	 }
-  }
+  
 	   
   post {
         success {
