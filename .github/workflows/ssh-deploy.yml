@@ -92,7 +92,8 @@ jobs:
             docker compose -f docker-compose-actions-cache.yml pull
             docker compose -f docker-compose-actions-cache.yml down
             docker compose -f docker-compose-actions-cache.yml up -d
-
+            docker image prune -f
+            
         #디스코드 :종료 알림 메세지
       - name: Start Message
         uses: sarisia/actions-status-discord@v1
