@@ -49,7 +49,7 @@ services:
       context: ./frontend
       cache_to:
         - type=local,dest=/tmp/.buildx-cache/frontend,mode=max
-       
+
       cache_from:
         - type=local,src=/tmp/.buildx-cache/frontend
 
@@ -58,7 +58,7 @@ services:
     image: wonnho/frontend:latest
     ports:
       - "80:80"
-      - "433:433"
+      - "443:443"
     networks:
       - backend-connect
     volumes:
