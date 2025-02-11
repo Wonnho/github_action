@@ -49,11 +49,7 @@ services:
       context: ./frontend
       cache_to:
         - type=local,dest=/tmp/.buildx-cache/frontend,mode=max
-        #local은 file을 의미함
-        #type: types of cache
-        #src: cache를 저장할 경로
-        #mode: cache의 저장 방식(max: 최대한 많은 cache data를 저장
-      # path from calling cache
+       
       cache_from:
         - type=local,src=/tmp/.buildx-cache/frontend
 
@@ -62,8 +58,12 @@ services:
     image: wonnho/frontend:latest
     ports:
       - "80:80"
+      - "433:433"
     networks:
       - backend-connect
+    volumes:
+      - /etc/letsencrypt/live/54.180.238.27.sslip.io/fullchain.pem:/etc/letsencrypt/live/54.180.238.27.sslip.io/fullchain.pem
+      - /etc/letsencrypt/live/54.180.238.27.sslip.io/privkey.pem:/etc/letsencrypt/live/54.180.238.27.sslip.io/privkey.pem
     depends_on:
       - backend
       - db
