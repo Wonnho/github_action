@@ -44,7 +44,8 @@ jobs:
           echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .env
           echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
-
+          echo "DOMAIN=${{secrets.DOMAIN}}" >> .env
+          echo "API_URL=${{secrets.API_URL}}" >> .env
       #docker BuildKit engine setup action(library)
       - name: Set up docker BuildKit
         #setup-buildx-action
@@ -93,7 +94,7 @@ jobs:
             docker compose -f docker-compose-actions-cache.yml down
             docker compose -f docker-compose-actions-cache.yml up -d
             docker image prune -f
-            
+
         #디스코드 :종료 알림 메세지
       - name: Start Message
         uses: sarisia/actions-status-discord@v1
